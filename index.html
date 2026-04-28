@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultrametric AI — Proof of Concept</title>
+<meta name="description" content="Token-level explainable attention via p-adic valuation trees and Spencer-Brown's Laws of Form. Interactive web demo.">
+<meta name="theme-color" content="#fdfcfa">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+
+<!-- ── Header ── -->
+<div class="site-header">
+  <span class="site-title"><a href=".">Ultrametric AI PoC</a></span>
+  <span style="font-family:var(--sans);font-size:0.7rem;color:var(--muted);">Tree-based explainable attention</span>
+</div>
+
+<div class="hero">
+  <h1>Ultrametric AI</h1>
+  <p class="tagline">Token-level explainable attention via <strong>p-adic valuation trees</strong> and <strong>Spencer-Brown's Laws of Form</strong>. Interactive proof of concept.</p>
+  <span class="badge">zero learned parameters · fully auditable · browser-based</span>
+</div>
+
+<!-- ── Tab Navigation ── -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('ultrametric')">🔬 Ultrametric Attention</button>
+  <button class="tab-btn" onclick="switchTab('distinction')">▣ Distinction Calculus</button>
+  <button class="tab-btn" onclick="switchTab('cocycle')">△ Cocycle Auditor</button>
+  <button class="tab-btn" onclick="switchTab('particles')">⚛ Particle Zoo</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 1: Ultrametric Attention
+     ═══════════════════════════════════════════════════════ -->
+<div id="tab-ultrametric" class="tab-content active">
+
+  <p>Enter a sentence. Each word is encoded as the <strong>product of semantic primes</strong> (good=2, bad=3, not=5, very=7, but=11). The <strong>ultrametric distance</strong> between words is the max difference of their p-adic valuations. <strong>Attention = e<sup>-distance/T</sup></strong> — purely geometric, fully auditable.</p>
+
+  <div class="controls">
+    <input type="text" id="ultra-sentence" value="this movie was very good but not great" placeholder="Enter a sentence...">
+    <button class="btn" onclick="runUltra()">▶ Compute Attention</button>
+  </div>
+
+  <div class="slider-row">
+    <span>Temperature:</span>
+    <input type="range" id="ultra-temp" min="0.1" max="5" step="0.1" value="1" oninput="this.nextElementSibling.textContent=this.value">
+    <span style="font-family:var(--mono);min-width:2rem;">1</span>
+  </div>
+
+  <div id="ultra-results"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 2: Distinction Calculus
+     ═══════════════════════════════════════════════════════ -->
+<div id="tab-distinction" class="tab-content">
+
+  <p>Spencer-Brown's <strong>Laws of Form</strong> begins with <em>"Draw a distinction."</em> Marks (<code>#</code>) and enclosures (<code>[ ]</code>) are the primitives. Two rules — <strong>Calling</strong> (<code>##→#</code>) and <strong>Crossing</strong> (<code>[[A]]→A</code>) — are the complete engine. Below, build expressions and see reduction in action.</p>
+
+  <div class="card-grid">
+    <div class="card"><div class="icon">#</div><h3>Mark</h3><p>"Something is here"</p></div>
+    <div class="card"><div class="icon">[ ]</div><h3>Enclosure</h3><p>Creates inside/outside</p></div>
+    <div class="card"><div class="icon">##→#</div><h3>Calling</h3><p>Redundancy condenses</p></div>
+    <div class="card"><div class="icon">[[A]]→A</div><h3>Crossing</h3><p>Boundaries cancel</p></div>
+  </div>
+
+  <div class="controls" style="margin-top:1rem;">
+    <div style="display:flex;flex-direction:column;gap:0.3rem;">
+      <label style="font-family:var(--sans);font-size:0.8rem;">Nesting depth</label>
+      <input type="range" id="dc-depth" min="0" max="5" value="2" oninput="this.nextElementSibling.textContent=this.value">
+      <span style="font-family:var(--mono);">2</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.3rem;">
+      <label style="font-family:var(--sans);font-size:0.8rem;">Number of marks</label>
+      <input type="range" id="dc-marks" min="1" max="5" value="1" oninput="this.nextElementSibling.textContent=this.value">
+      <span style="font-family:var(--mono);">1</span>
+    </div>
+    <button class="btn" onclick="runDistinction()">▶ Build &amp; Reduce</button>
+  </div>
+
+  <div id="dc-results"></div>
+
+  <hr>
+  <h3>Sentence → Distinction Encoding</h3>
+  <div class="controls">
+    <input type="text" id="dc-sentence" value="very good but not great" placeholder="Sentence to encode...">
+    <button class="btn" onclick="runDCEncode()">▶ Encode</button>
+  </div>
+  <div id="dc-encode-results"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 3: Cocycle Auditor
+     ═══════════════════════════════════════════════════════ -->
+<div id="tab-cocycle" class="tab-content">
+
+  <p>The <strong>cocycle cognitive architecture</strong> hypothesis: neural representations maintain consistency via cocycle conditions on the Bruhat-Tits tree. The <strong>strong triangle inequality</strong> must hold: <em>d(a,b) ≤ max(d(a,c), d(b,c))</em> for any three concepts.</p>
+
+  <h3>Triangle Cocycle Check</h3>
+  <div class="controls">
+    <input type="text" id="coc-a" value="good" placeholder="Word A" style="flex:1;">
+    <input type="text" id="coc-b" value="bad" placeholder="Word B" style="flex:1;">
+    <input type="text" id="coc-c" value="great" placeholder="Word C" style="flex:1;">
+    <button class="btn" onclick="runCocycle()">▶ Verify</button>
+  </div>
+  <div id="coc-triangle-result"></div>
+
+  <hr>
+  <h3>Bulk Consistency Audit</h3>
+  <div class="controls">
+    <input type="text" id="coc-sentence" value="the movie was very good but the acting was terrible" placeholder="Sentence for bulk audit...">
+    <button class="btn" onclick="runBulkAudit()">▶ Audit</button>
+  </div>
+  <div id="coc-bulk-result"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 4: Particle Zoo
+     ═══════════════════════════════════════════════════════ -->
+<div id="tab-particles" class="tab-content">
+
+  <p>In the Syntactic Token Calculus, <strong>particles are stable patterns</strong> — expressions that cannot be reduced by Calling or Crossing. Each stable pattern is a particle candidate.</p>
+
+  <h3>Standard Model Particles as Syntactic Patterns</h3>
+  <div class="card-grid" id="particle-grid"></div>
+
+  <hr>
+  <h3>Semantic Primes as Patterns</h3>
+  <div id="semantic-prime-grid" class="card-grid"></div>
+
+  <div class="result-box" style="margin-top:1rem;">
+    <p style="font-size:0.85rem;margin:0;">These five primes (<code>good=2, bad=3, not=5, very=7, but=11</code>) form the basis of the ultrametric attention encoding. Each word's prime product determines its position on the Bruhat-Tits product tree. Words with identical prime assignments have zero ultrametric distance — they are syntactically identical in this encoding.</p>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<div class="site-footer">
+  <p><strong>Ultrametric AI Proof of Concept</strong> — Based on Spencer-Brown's <em>Laws of Form</em> (1969), the Bruhat-Tits tree, and cocycle cognitive architecture.</p>
+  <p>No learned parameters. No black boxes. Auditable attention. · <a href="https://github.com/rwnq8/ultrametric-ai-poc">Source</a></p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════════════════ -->
+<script src="js/distinction.js"></script>
+<script src="js/cocycle.js"></script>
+<script src="js/model.js"></script>
+<script>
+// ── Tab switching ──
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ════════════════════════════════════
+// TAB 1: Ultrametric Attention
+// ════════════════════════════════════
+function runUltra() {
+  const s = document.getElementById('ultra-sentence').value.trim();
+  const T = parseFloat(document.getElementById('ultra-temp').value);
+  if (!s) return;
+  
+  const { tokens, valuations, products } = sentenceToValuations(s);
+  if (tokens.length === 0) { document.getElementById('ultra-results').innerHTML = '<p>No recognizable tokens found.</p>'; return; }
+  
+  const { attn, dist } = pairwiseAttentionMatrix(valuations, T);
+  const tokenAttn = attn.map((_, j) => attn.reduce((sum, row) => sum + row[j], 0));
+  const n = tokens.length;
+  
+  // ── Token chips ──
+  let html = '<div class="token-row">';
+  for (let i = 0; i < n; i++) {
+    const primes = wordToPrimes(tokens[i]);
+    html += `<div class="token-chip"><span class="code">${tokens[i]}</span><span class="label">∏=${products[i]} · primes: ${primes.join(',')||'none'}</span></div>`;
+  }
+  html += '</div>';
+  
+  // ── Attention matrix ──
+  html += '<h3>Attention Matrix</h3><table class="attn-table"><tr><th></th>';
+  for (const t of tokens) html += `<th>${t}</th>`;
+  html += '</tr>';
+  for (let i = 0; i < n; i++) {
+    html += `<tr><th>${tokens[i]}</th>`;
+    for (let j = 0; j < n; j++) {
+      const v = attn[i][j], pct = Math.round(v * 100);
+      const bg = pct > 50 ? '#f5d0b0' : pct > 25 ? '#fdf0e0' : 'transparent';
+      html += `<td style="background:${bg};" title="d=${dist[i][j]}">${v.toFixed(2)}</td>`;
+    }
+    html += '</tr>';
+  }
+  html += '</table>';
+  
+  // ── Token attention received ──
+  html += '<h3>Attention Received Per Token</h3><div style="display:flex;flex-wrap:wrap;gap:0.5rem;">';
+  const maxAttn = Math.max(...tokenAttn);
+  for (let i = 0; i < n; i++) {
+    const w = (tokenAttn[i] / maxAttn) * 100;
+    html += `<div style="flex:1;min-width:60px;text-align:center;">
+      <div style="font-family:var(--mono);font-size:0.9rem;">${tokenAttn[i].toFixed(2)}</div>
+      <div style="background:var(--accent);height:4px;width:${w}%;min-width:2px;margin:0 auto;"></div>
+      <div style="font-size:0.7rem;color:var(--muted);">${tokens[i]}</div></div>`;
+  }
+  html += '</div>';
+  
+  // ── Top pairs ──
+  html += '<h3>Top Attending Pairs</h3>';
+  const pairs = [];
+  for (let i = 0; i < n; i++) for (let j = i+1; j < n; j++) pairs.push([i, j, attn[i][j]]);
+  pairs.sort((a, b) => b[2] - a[2]);
+  for (const [i, j, w] of pairs.slice(0, 5)) {
+    html += `<p style="font-family:var(--mono);font-size:0.85rem;">${tokens[i]} ↔ ${tokens[j]} — attention: <strong>${w.toFixed(3)}</strong>, ultrametric distance: ${dist[i][j]}</p>`;
+  }
+  
+  // ── Cocycle check ──
+  if (n >= 3) {
+    const r = checkStrongTriangle(valuations[0], valuations[1], valuations[2]);
+    html += r.ok 
+      ? `<div class="result-box success">✓ <strong>Cocycle satisfied</strong> — d(${tokens[0]},${tokens[1]})=${r.d12} ≤ max(${r.d13},${r.d23})=${r.max}${r.isIsosceles ? ' (isosceles)' : ''}</div>`
+      : `<div class="result-box warn">✗ <strong>Violation</strong> — d(${tokens[0]},${tokens[1]})=${r.d12} > max(${r.d13},${r.d23})=${r.max}</div>`;
+  }
+  
+  document.getElementById('ultra-results').innerHTML = html;
+}
+
+// ════════════════════════════════════
+// TAB 2: Distinction Calculus
+// ════════════════════════════════════
+function runDistinction() {
+  const depth = parseInt(document.getElementById('dc-depth').value);
+  const marks = parseInt(document.getElementById('dc-marks').value);
+  
+  let inner = '#'.repeat(marks), exprStr = inner;
+  for (let i = 0; i < depth; i++) exprStr = `[${exprStr}]`;
+  
+  const expr = new Expr(exprStr);
+  const nf = expr.normalForm();
+  
+  let html = '<div class="card-grid">';
+  html += `<div class="card"><h3>Original</h3><p style="font-family:var(--mono);font-size:1.1rem;">${expr.raw}</p><p>Depth: ${expr.depth} · Marks: ${expr.markCount}</p></div>`;
+  html += `<div class="card"><h3>Normal Form</h3><p style="font-family:var(--mono);font-size:1.1rem;">${nf.raw}</p><p>Depth: ${nf.depth} · Marks: ${nf.markCount} · <strong>${nf.isStable() ? 'STABLE ✓' : '→ reduced'}</strong></p></div>`;
+  html += '</div>';
+  
+  // Match against known particles
+  for (const [name, pat] of Object.entries(STABLE_PATTERNS)) {
+    if (nf.raw === pat.raw) html += `<div class="result-box success">Matches known particle: <strong>${name.replace('_',' ')}</strong> (${pat.raw})</div>`;
+  }
+  
+  // Reduction trace
+  html += '<h3>Reduction Trace</h3>';
+  let cur = expr, step = 0;
+  while (step < 20) {
+    const call = cur.reduceCalling(), cross = cur.reduceCrossing();
+    html += `<div class="trace-line"><code>${cur.raw}</code><span class="arrow"> → Calling:</span><code>${call.raw}</code><span class="arrow"> → Crossing:</span><code>${cross.raw}</code></div>`;
+    const next = call.reduceCrossing();
+    if (next.raw === cur.raw) break;
+    cur = next; step++;
+  }
+  html += `<p style="font-family:var(--mono);margin-top:0.5rem;"><strong>Normal form: ${cur.raw}</strong> (stable: ${cur.isStable()})</p>`;
+  
+  document.getElementById('dc-results').innerHTML = html;
+}
+
+function runDCEncode() {
+  const s = document.getElementById('dc-sentence').value.trim();
+  if (!s) return;
+  const exprs = sentenceToExprs(s);
+  const tokens = (s.toLowerCase().match(/[\w']+|[^\w\s]/g) || []);
+  const n = exprs.length;
+  
+  let html = '<div class="token-row">';
+  for (let i = 0; i < n; i++) {
+    const nf = exprs[i].normalForm();
+    html += `<div class="token-chip"><span class="label">${tokens[i]}</span><span class="code">${exprs[i].raw}</span><span class="label">NF: ${nf.raw} · d=${exprs[i].depth} · ${exprs[i].isStable()?'stable':'unstable'}</span></div>`;
+  }
+  html += '</div>';
+  
+  // Distance table
+  if (n > 1) {
+    html += '<h3>Tree Distance Matrix</h3><table class="attn-table"><tr><th></th>';
+    for (const t of tokens) html += `<th>${t}</th>`;
+    html += '</tr>';
+    for (let i = 0; i < n; i++) {
+      html += `<tr><th>${tokens[i]}</th>`;
+      for (let j = 0; j < n; j++) {
+        const d = treeDistance(exprs[i], exprs[j]);
+        html += `<td>${d}</td>`;
+      }
+      html += '</tr>';
+    }
+    html += '</table>';
+  }
+  
+  document.getElementById('dc-encode-results').innerHTML = html;
+}
+
+// ════════════════════════════════════
+// TAB 3: Cocycle Auditor
+// ════════════════════════════════════
+function runCocycle() {
+  const a = document.getElementById('coc-a').value.trim();
+  const b = document.getElementById('coc-b').value.trim();
+  const c = document.getElementById('coc-c').value.trim();
+  if (!a || !b || !c) return;
+  
+  const va = toValuationVector(wordToProduct(a));
+  const vb = toValuationVector(wordToProduct(b));
+  const vc = toValuationVector(wordToProduct(c));
+  const r = checkStrongTriangle(va, vb, vc);
+  
+  let html = '<div class="card-grid">';
+  html += `<div class="metric"><div class="val">${r.d12}</div><div class="lbl">d(${a},${b})</div></div>`;
+  html += `<div class="metric"><div class="val">${r.d13}</div><div class="lbl">d(${a},${c})</div></div>`;
+  html += `<div class="metric"><div class="val">${r.d23}</div><div class="lbl">d(${b},${c})</div></div>`;
+  html += '</div>';
+  
+  // Valuation vectors
+  html += '<p style="font-family:var(--mono);font-size:0.85rem;">';
+  html += `${a}: [${va.join(',')}] &nbsp; ${b}: [${vb.join(',')}] &nbsp; ${c}: [${vc.join(',')}]`;
+  html += '</p>';
+  
+  if (r.ok) {
+    html += `<div class="result-box success">✓ <strong>Cocycle satisfied</strong> — ${r.d12} ≤ max(${r.d13}, ${r.d23}) = ${r.max}${r.isIsosceles ? ' (ultrametric: isosceles)' : ''}</div>`;
+  } else {
+    html += `<div class="result-box warn">✗ <strong>Violation</strong> — ${r.d12} > max(${r.d13}, ${r.d23}) = ${r.max}</div>`;
+  }
+  
+  document.getElementById('coc-triangle-result').innerHTML = html;
+}
+
+function runBulkAudit() {
+  const s = document.getElementById('coc-sentence').value.trim();
+  if (!s) return;
+  const { tokens, valuations } = sentenceToValuations(s);
+  const n = tokens.length;
+  
+  if (n < 3) {
+    document.getElementById('coc-bulk-result').innerHTML = '<p>Need at least 3 tokens for triangle checks.</p>';
+    return;
+  }
+  
+  const r = globalCocycleConsistency(valuations, tokens);
+  
+  let html = '';
+  html += `<div class="metric"><div class="val">${(r.ratio*100).toFixed(1)}%</div><div class="lbl">Global Cocycle Consistency</div></div>`;
+  html += `<p style="font-size:0.85rem;color:var(--muted);">${r.sat} / ${r.total} triangles satisfy the strong triangle inequality</p>`;
+  
+  if (r.violations.length > 0) {
+    html += `<div class="result-box warn"><strong>${r.violations.length} violations:</strong> ${r.violations.slice(0,5).join(', ')}${r.violations.length>5?'...':''}</div>`;
+  } else {
+    html += '<div class="result-box success">✓ All triangles ultrametric — cocycle consistency confirmed.</div>';
+  }
+  
+  // Distance matrix
+  html += '<h3>Ultrametric Distance Matrix</h3><table class="attn-table"><tr><th></th>';
+  for (const t of tokens) html += `<th>${t}</th>`;
+  html += '</tr>';
+  for (let i = 0; i < n; i++) {
+    html += `<tr><th>${tokens[i]}</th>`;
+    for (let j = 0; j < n; j++) {
+      const d = ultrametricDistance(valuations[i], valuations[j]);
+      html += `<td>${d}</td>`;
+    }
+    html += '</tr>';
+  }
+  html += '</table>';
+  
+  document.getElementById('coc-bulk-result').innerHTML = html;
+}
+
+// ════════════════════════════════════
+// TAB 4: Particle Zoo (run on load)
+// ════════════════════════════════════
+function buildParticleZoo() {
+  let html = '';
+  for (const [name, expr] of Object.entries(STABLE_PATTERNS)) {
+    const nf = expr.normalForm();
+    const label = name.replace(/_/g, ' ');
+    const emoji = name === 'photon' ? 'γ' : name === 'electron' ? 'e⁻' : name === 'up_quark' ? 'u' : name === 'down_quark' ? 'd' : name === 'w_boson' ? 'W' : 'Z/H';
+    html += `<div class="card">
+      <div class="icon">${emoji}</div>
+      <h3>${label}</h3>
+      <p style="font-size:1rem;font-family:var(--mono);">${expr.raw}</p>
+      <p>Depth: ${expr.depth} · Marks: ${expr.markCount} · <strong>Stable: ${expr.isStable() ? '✓' : '?'}</strong></p>
+    </div>`;
+  }
+  document.getElementById('particle-grid').innerHTML = html;
+  
+  // Semantic primes
+  html = '';
+  for (const [name, expr] of Object.entries(SEMANTIC_PRIME_PATTERNS)) {
+    const p = PRIME_BASIS[name];
+    html += `<div class="card">
+      <h3>${name.toUpperCase()}</h3>
+      <p style="font-size:1rem;font-family:var(--mono);">${expr.raw}</p>
+      <p>Prime = <strong>${p}</strong> · Depth: ${expr.depth} · Stable: ${expr.isStable()?'✓':'→'}</p>
+    </div>`;
+  }
+  document.getElementById('semantic-prime-grid').innerHTML = html;
+}
+
+// ── Initialize ──
+buildParticleZoo();
+</script>
+
+</body>
+</html>
